@@ -33,11 +33,10 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
   }
 
   override fun onDetachedFromActivity() {
-    TODO("Not yet implemented")
+
   }
 
   override fun onReattachedToActivityForConfigChanges(p0: ActivityPluginBinding) {
-    TODO("Not yet implemented")
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -45,7 +44,6 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
-    TODO("Not yet implemented")
   }
 
   // This static function is optional and equivalent to onAttachedToEngine. It supports the old
@@ -70,8 +68,8 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
     "getPlatformVersion" -> result.success("Android ${android.os.Build.VERSION.RELEASE}")
     "getDeviceLang" -> {
       val currentLanguage = Locale.getDefault().language
-      System.out.println("langCode: $currentLanguage")
-      result.success(currentLanguage);
+      //System.out.println("langCode: $currentLanguage")
+      result.success(currentLanguage)
     }
     "openPlayStore" -> {
       try {

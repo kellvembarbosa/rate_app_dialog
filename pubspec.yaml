@@ -1,8 +1,8 @@
 name: rate_app_dialog
 description: A new flutter plugin project.
 version: 0.0.1
-author:
-homepage:
+author: kellvem222@gmail.com
+homepage: https://kellvem.pt
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
