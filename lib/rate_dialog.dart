@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:rate_app_dialog/channel_calls.dart';
 import 'package:rate_app_dialog/lang_texts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,13 +7,12 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'constants.dart';
 
 class RateDialog extends StatefulWidget {
-  final int rateType, minimeRateIsGood;
+  final int minimeRateIsGood;
   final bool afterStarRedirect;
   String btnLater;
   final Image image;
 
   RateDialog({
-    @required this.rateType,
     @required this.minimeRateIsGood,
     this.image,
     this.afterStarRedirect,
@@ -36,9 +34,7 @@ class _RateDialogState extends State<RateDialog> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
     ChannelCall().getDeviceLang().then((value) {
       langArrayPosition = value;
       _langTexts = LangTexts().langText[langArrayPosition];
@@ -85,7 +81,7 @@ class _RateDialogState extends State<RateDialog> {
             ),
             margin: EdgeInsets.only(top: Constants.avatarRadius),
             decoration: new BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).scaffoldBackgroundColor, //Colors.white,
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(Constants.padding),
               boxShadow: [
@@ -136,41 +132,43 @@ class _RateDialogState extends State<RateDialog> {
         SizedBox(height: 24.0),
         Center(
             child: SmoothStarRating(
-          rating: 0,
-          isReadOnly: false,
-          size: 40,
-          filledIconData: Icons.star,
-          halfFilledIconData: Icons.star_half,
-          defaultIconData: Icons.star_border,
-          starCount: 5,
-          allowHalfRating: false,
-          spacing: 2.0,
-          onRated: (value) {
-            print(
-                "rating value -> ${value.toInt()} ==== $minimeRateIsGood && afterStarRedirect: ${widget.afterStarRedirect}");
-            ratedStars = value.toInt();
+              rating: 0,
+              isReadOnly: false,
+              size: 40,
+              filledIconData: Icons.star,
+              halfFilledIconData: Icons.star_half,
+              defaultIconData: Icons.star_border,
+              starCount: 5,
+              color: Colors.amber,
+              borderColor: Colors.amber,
+              allowHalfRating: false,
+              spacing: 2.0,
+              onRated: (value) {
+                print(
+                    "rating value -> ${value.toInt()} ==== $minimeRateIsGood && afterStarRedirect: ${widget.afterStarRedirect}");
+                ratedStars = value.toInt();
 
-            if (value.toInt() >= minimeRateIsGood) {
-              if (widget.afterStarRedirect) {
-                debugPrint("forcedRedirect after stars");
-                ChannelCall().openPlayStore();
-                _updateRatedDatabase(rated: true);
-                Navigator.pop(context);
-                return;
-              }
-              isGood = 1;
-              _updateRateStarDatabase(intraterStar: value.toInt());
-              setState(() {});
-              return;
-            }
+                if (value.toInt() >= minimeRateIsGood) {
+                  if (widget.afterStarRedirect) {
+                    debugPrint("forcedRedirect after stars");
+                    ChannelCall().openPlayStore();
+                    _updateRatedDatabase(rated: true);
+                    Navigator.pop(context);
+                    return;
+                  }
+                  isGood = 1;
+                  _updateRateStarDatabase(intraterStar: value.toInt());
+                  setState(() {});
+                  return;
+                }
 
-            if (value.toInt() < minimeRateIsGood) {
-              isGood = 2;
-              _updateRateStarDatabase(intraterStar: value.toInt());
-              setState(() {});
-            }
-          },
-        )),
+                if (value.toInt() < minimeRateIsGood) {
+                  isGood = 2;
+                  _updateRateStarDatabase(intraterStar: value.toInt());
+                  setState(() {});
+                }
+              },
+            )),
         SizedBox(
           height: 24,
         ),
@@ -235,40 +233,42 @@ class _RateDialogState extends State<RateDialog> {
         SizedBox(height: 16.0),
         Center(
             child: SmoothStarRating(
-          rating: ratedStars.toDouble(),
-          isReadOnly: false,
-          size: 40,
-          filledIconData: Icons.star,
-          halfFilledIconData: Icons.star_half,
-          defaultIconData: Icons.star_border,
-          starCount: 5,
-          allowHalfRating: false,
-          spacing: 2.0,
-          onRated: (value) {
-            print("rating value -> ${value.toInt()} ==== $minimeRateIsGood");
+              rating: ratedStars.toDouble(),
+              isReadOnly: false,
+              size: 40,
+              filledIconData: Icons.star,
+              halfFilledIconData: Icons.star_half,
+              defaultIconData: Icons.star_border,
+              color: Colors.amber,
+              borderColor: Colors.amber,
+              starCount: 5,
+              allowHalfRating: false,
+              spacing: 2.0,
+              onRated: (value) {
+                print("rating value -> ${value.toInt()} ==== $minimeRateIsGood");
 
-            ratedStars = value.toInt();
+                ratedStars = value.toInt();
 
-            if (value.toInt() >= minimeRateIsGood) {
-              if (widget.afterStarRedirect) {
-                debugPrint("forcedRedirect after stars");
-                ChannelCall().openPlayStore();
-                _updateRatedDatabase(rated: true);
-                return;
-              }
-              isGood = 1;
-              _updateRateStarDatabase(intraterStar: value.toInt());
-              setState(() {});
-              return;
-            }
+                if (value.toInt() >= minimeRateIsGood) {
+                  if (widget.afterStarRedirect) {
+                    debugPrint("forcedRedirect after stars");
+                    ChannelCall().openPlayStore();
+                    _updateRatedDatabase(rated: true);
+                    return;
+                  }
+                  isGood = 1;
+                  _updateRateStarDatabase(intraterStar: value.toInt());
+                  setState(() {});
+                  return;
+                }
 
-            if (value.toInt() < minimeRateIsGood) {
-              isGood = 2;
-              _updateRateStarDatabase(intraterStar: value.toInt());
-              setState(() {});
-            }
-          },
-        )),
+                if (value.toInt() < minimeRateIsGood) {
+                  isGood = 2;
+                  _updateRateStarDatabase(intraterStar: value.toInt());
+                  setState(() {});
+                }
+              },
+            )),
         SizedBox(height: 16.0),
         Text(
           _langTexts['badRateDescription'],
@@ -293,7 +293,6 @@ class _RateDialogState extends State<RateDialog> {
         Align(
           alignment: Alignment.bottomCenter,
           child: FlatButton(
-            color: Colors.red,
             onPressed: () {
               //ChannelCall().openPlayStore();
               Navigator.of(context).pop();
@@ -301,7 +300,6 @@ class _RateDialogState extends State<RateDialog> {
             },
             child: Text(
               _langTexts['badBtnSend'],
-              style: TextStyle(color: Colors.white),
             ),
           ),
         ),

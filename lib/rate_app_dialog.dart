@@ -9,54 +9,32 @@ import 'rate_dialog.dart';
 
 class RateAppDialog {
   final BuildContext context;
-  int minimeRateIsGood;
-  int rateType;
-  int minimeRequestToShow;
+  final int minimeRateIsGood;
+  final int minimeRequestToShow;
   final bool afterStarRedirect;
-
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  RateAppDialog({this.context, this.minimeRateIsGood, this.rateType, this.minimeRequestToShow, this.afterStarRedirect}){
-    _prefs.then((SharedPreferences prefs) {
-      debugPrint(
-          "retornou ${prefs.getInt(Constants.table_minime_is_good) ?? minimeRateIsGood} && afterStarRedirect: $afterStarRedirect");
-      this.minimeRateIsGood =
-          prefs.getInt(Constants.table_minime_is_good) ?? minimeRateIsGood;
-
-      minimeRequestToShow =
-          prefs.getInt(Constants.table_rate_minime_request) ??
-              minimeRequestToShow;
-      rateType = prefs.getInt(Constants.table_rate_type) ?? rateType;
-
-      return (prefs.getInt(Constants.table_minime_is_good) ?? minimeRateIsGood);
-    });
-  }
-
-
+  RateAppDialog({this.context, this.minimeRateIsGood = 4, this.minimeRequestToShow = 4, this.afterStarRedirect = false});
 
   requestRate() async {
     int numeroRequest = await _updateRateRequest();
-
     final SharedPreferences prefs = await _prefs;
 
-    if (!(prefs.getBool(Constants.table_rated) ?? false) &&
-        numeroRequest >= minimeRequestToShow)
+    debugPrint("rate_app_dialog:debugPrint | numberOfRequest: $numeroRequest minimeRequestToShow: $minimeRequestToShow");
+    if(!(prefs.getBool(Constants.table_rated) ?? false) && numeroRequest >= minimeRequestToShow)
       showDialog(
           context: context,
           builder: (BuildContext context) => RateDialog(
-              rateType: 0,
               afterStarRedirect: afterStarRedirect,
-              minimeRateIsGood: minimeRateIsGood));
+              minimeRateIsGood: minimeRateIsGood
+          ));
     else
-      debugPrint("this user rated");
+      debugPrint("rate_app_dialog:debugPrint | this user rated");
   }
 
   Future<int> _updateRateRequest() async {
     final SharedPreferences prefs = await _prefs;
-    int minimeRequestToShow =
-        (prefs.getInt(Constants.table_rate_minime_request) ??
-                this.minimeRequestToShow) +
-            1;
+    int minimeRequestToShow = (prefs.getInt(Constants.table_rate_minime_request) ?? 0) + 1;
     int saved = await prefs
         .setInt(Constants.table_rate_minime_request, minimeRequestToShow)
         .then((bool success) {
