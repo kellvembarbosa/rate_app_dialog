@@ -24,11 +24,10 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel: MethodChannel
-
   private lateinit var activity: Activity
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "rate_app_dialog")
+    channel = MethodChannel(flutterPluginBinding.flutterEngine.dartExecutor, "rate_app_dialog")
     channel.setMethodCallHandler(this);
   }
 
