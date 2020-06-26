@@ -7,7 +7,7 @@ class LangTexts {
       "badRateDescription": "Tell us why you don't like this app?",
       "badBtnSend": "Submit",
       "goodRateDescription": "Help us rate our app on the PlayStore.",
-      "gootBtnRate": "Rate now!"
+      "goodBtnRate": "Rate now!"
     },
     "pt": {
       "title": "Avalie este app",
@@ -16,7 +16,7 @@ class LangTexts {
       "badRateDescription": "Diga-nos por que você não gosta deste aplicativo?",
       "badBtnSend": "Enviar",
       "goodRateDescription": "Ei, Ajuda aí, avalie nosso app na PlayStore!",
-      "gootBtnRate": "Avaliar agora!"
+      "goodBtnRate": "Avaliar agora!"
     },
     "es": {
       "title": "Calificación de esta app",
@@ -25,7 +25,7 @@ class LangTexts {
       "badRateDescription": "Dinos por qué no te gusta esta aplicación?",
       "badBtnSend": "Enviar",
       "goodRateDescription": "¡Ayúdanos a calificar nuestra aplicación en PlayStore!",
-      "gootBtnRate": "Evaluar ahora!"
+      "goodBtnRate": "Evaluar ahora!"
     },
   };
 
