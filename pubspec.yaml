@@ -1,6 +1,6 @@
 name: rate_app_dialog
 description: A new flutter plugin project.
-version: 0.0.1
+version: 0.0.2
 author: kellvem222@gmail.com
 homepage: https://kellvem.pt
 
@@ -9,8 +9,7 @@ environment:
   flutter: ">=1.10.0"
 
 dependencies:
-  smooth_star_rating: ^1.1.1
-  shared_preferences: ^0.5.7+3
+  shared_preferences:
 
   flutter:
     sdk: flutter

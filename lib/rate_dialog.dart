@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rate_app_dialog/channel_calls.dart';
 import 'package:rate_app_dialog/lang_texts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'constants.dart';
+import 'star_rating.dart';
 
 class RateDialog extends StatefulWidget {
   final int minimeRateIsGood;
@@ -131,9 +131,9 @@ class _RateDialogState extends State<RateDialog> {
         ),
         SizedBox(height: 24.0),
         Center(
-            child: SmoothStarRating(
+            child: StarRating(
               rating: 0,
-              isReadOnly: false,
+              //isReadOnly: false,
               size: 40,
               filledIconData: Icons.star,
               halfFilledIconData: Icons.star_half,
@@ -143,7 +143,7 @@ class _RateDialogState extends State<RateDialog> {
               borderColor: Colors.amber,
               allowHalfRating: false,
               spacing: 2.0,
-              onRated: (value) {
+              onRatingChanged: (value) {
                 print(
                     "rating value -> ${value.toInt()} ==== $minimeRateIsGood && afterStarRedirect: ${widget.afterStarRedirect}");
                 ratedStars = value.toInt();
@@ -232,9 +232,9 @@ class _RateDialogState extends State<RateDialog> {
         ),
         SizedBox(height: 16.0),
         Center(
-            child: SmoothStarRating(
+            child: StarRating(
               rating: ratedStars.toDouble(),
-              isReadOnly: false,
+              //isReadOnly: false,
               size: 40,
               filledIconData: Icons.star,
               halfFilledIconData: Icons.star_half,
@@ -244,7 +244,7 @@ class _RateDialogState extends State<RateDialog> {
               starCount: 5,
               allowHalfRating: false,
               spacing: 2.0,
-              onRated: (value) {
+              onRatingChanged: (value) {
                 print("rating value -> ${value.toInt()} ==== $minimeRateIsGood");
 
                 ratedStars = value.toInt();
