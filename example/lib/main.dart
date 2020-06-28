@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    rateAppDialog = RateAppDialog(context: context, afterStarRedirect: true);
+    rateAppDialog = RateAppDialog(context: context, afterStarRedirect: false, minimeRequestToShow: 4, minimeRateIsGood: 4).requestRate();
   }
 
   @override
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          rateAppDialog.requestRate();
+          rateAppDialog?.requestRate();
           _incrementCounter();
         },
         tooltip: 'Increment',

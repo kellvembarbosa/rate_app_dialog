@@ -67,7 +67,6 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
     "getPlatformVersion" -> result.success("Android ${android.os.Build.VERSION.RELEASE}")
     "getDeviceLang" -> {
       val currentLanguage = Locale.getDefault().language
-      //System.out.println("langCode: $currentLanguage")
       result.success(currentLanguage)
     }
     "openPlayStore" -> {
