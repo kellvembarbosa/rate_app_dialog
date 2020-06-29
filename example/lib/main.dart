@@ -12,10 +12,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -45,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    rateAppDialog = RateAppDialog(context: context, afterStarRedirect: false, minimeRequestToShow: 4, minimeRateIsGood: 4).requestRate();
+    rateAppDialog = RateAppDialog(context: context, afterStarRedirect: false, minimeRequestToShow: 4, minimeRateIsGood: 4);
   }
 
   @override

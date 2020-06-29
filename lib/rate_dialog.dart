@@ -71,28 +71,30 @@ class _RateDialogState extends State<RateDialog> {
   dialogContent(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
-            padding: EdgeInsets.only(
-              //top: Constants.avatarRadius + Constants.padding,
-              top: Constants.padding,
-              bottom: Constants.padding,
-              left: Constants.padding,
-              right: Constants.padding,
-            ),
-            margin: EdgeInsets.only(top: Constants.avatarRadius),
-            decoration: new BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor, //Colors.white,
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(Constants.padding),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10.0,
-                  offset: const Offset(0.0, 10.0),
-                ),
-              ],
-            ),
-            child: rateDialog()),
+        SingleChildScrollView(
+          child: Container(
+              padding: EdgeInsets.only(
+                //top: Constants.avatarRadius + Constants.padding,
+                top: Constants.padding,
+                bottom: Constants.padding,
+                left: Constants.padding,
+                right: Constants.padding,
+              ),
+              margin: EdgeInsets.only(top: Constants.avatarRadius),
+              decoration: new BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor, //Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(Constants.padding),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0,
+                    offset: const Offset(0.0, 10.0),
+                  ),
+                ],
+              ),
+              child: rateDialog()),
+        ),
       ],
     );
   }

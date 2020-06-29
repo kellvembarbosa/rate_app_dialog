@@ -70,22 +70,23 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
       result.success(currentLanguage)
     }
     "openPlayStore" -> {
+      var pacote:String = this.activity.packageName;
       try {
         activity.startActivity(
-                Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("market://details?id=$activity.appPackageName")
-                )
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=$pacote")
+            )
         )
       } catch (exception: ActivityNotFoundException) {
         activity.startActivity(
-                Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse("https://play.google.com/store/apps/details?id=$activity.appPackageName")
-                )
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=$pacote")
+            )
         )
       }
-      result.success("openPlayStore");
+      result.success(pacote)
     } else -> result.notImplemented()
 
     }
