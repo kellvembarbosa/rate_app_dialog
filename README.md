@@ -2,6 +2,8 @@
 
 This package is designed to increase the ratings in your app, with bad review filter, find out what's bad and get more positive reviews!
 
+<img src="https://github.com/kellvembarbosa/rate_app_dialog/blob/master/screenshots/screen.gif?raw=true" width="320px">
+
 To call dialog and order evaluation, add the following code where you believe it is a good place to request user evaluation:
 
 ```dart
