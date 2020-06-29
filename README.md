@@ -11,9 +11,10 @@ Para adicionar este pacote ao seu projeto será necessário colocar isto ao seu 
 
 Para chamar o dialog request, adicione o seguinte código onde acredita ser um bom local para pedir a avaliação:
 
-```dart RateAppDialog(
-            context: context, minimeRateIsGood: 4, minimeRequestToShow: 15)
-        .requestRate();
+```dart 
+RateAppDialog(
+      context: context, minimeRateIsGood: 4, minimeRequestToShow: 15)
+  .requestRate();
 ```
 
 1.  **context:** é obrigatório.
