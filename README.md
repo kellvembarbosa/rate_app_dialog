@@ -17,8 +17,8 @@ Para chamar o dialog request, adicione o seguinte código onde acredita ser um b
 ```
 
 1.  **context:** é obrigatório.
-2. **minimeRateIsGood: ** Atribuito opicional, define o numero de estrelas que será solicitado para avaliação na loja. (default: 4)
-3. **minimeRequestToShow: ** Atributo opicional, define o numero de requisições para exibir o popup solicitando as estrelas. (default: 5)
+2. **minimeRateIsGood:** Atribuito opicional, define o numero de estrelas que será solicitado para avaliação na loja. (default: 4)
+3. **minimeRequestToShow:** Atributo opicional, define o numero de requisições para exibir o popup solicitando as estrelas. (default: 5)
 
 ##### ** Para que seja contabilizado e exibido será necessário chamar o metodo requestRate();
 
