@@ -1,27 +1,28 @@
-# rate_app_dialog
+## What is the rate_app_dialog
 
-Para adicionar este pacote ao seu projeto será necessário colocar isto ao seu pubspec:
+This package is designed to increase the ratings in your app, with bad review filter, find out what's bad and get more positive reviews!
 
-```dart 
-  rate_app_dialog:
-    git:
-      url: git://github.com/kellvembarbosa/rate_app_dialog.git
-      ref: master 
-```
+To call dialog and order evaluation, add the following code where you believe it is a good place to request user evaluation:
 
-Para chamar o dialog request, adicione o seguinte código onde acredita ser um bom local para pedir a avaliação:
-
-```dart 
+```dart
 RateAppDialog(
-      context: context, minimeRateIsGood: 4, minimeRequestToShow: 15)
+      context: context, 
+      minimeRateIsGood: 4, 
+      minimeRequestToShow: 5
+    )
   .requestRate();
-```
+ ```
+  
+#### Arguments
+- **context:** is required.
+- **minimeRateIsGood:** Opioid assignment, sets the number of stars that will be requested for evaluation in the store. (default: 4)
+- **minimeRequestToShow:** Opioid attribute, sets the number of requests to display the popup requesting the stars. (default: 5)
+- **afterStarRedirect:** Opioid attribute, Redirect to store after user passes ratings filter. (default: false)
+- **timeToShow:** Opioid attribute, opens the store with ideal delay for strategic points e.g. after a result expected by the user with delay of 5 seconds. (default: 0)
+- **emailAdmin:** Opioid attribute, email will be sent to the administrator with user feedback, (default: "")
 
-1.  **context:** é obrigatório.
-2. **minimeRateIsGood:** Atribuito opicional, define o numero de estrelas que será solicitado para avaliação na loja. (default: 4)
-3. **minimeRequestToShow:** Atributo opicional, define o numero de requisições para exibir o popup solicitando as estrelas. (default: 5)
 
-##### ** Para que seja contabilizado e exibido será necessário chamar o metodo requestRate();
+**Attention:** In order to be counted and displayed it will be necessary to call the method requestRate(), each call in requestRate() will be counted +1 and will be displayed according to the specified condition (minimeRequestToShow); You can specify various conditions in specific places to increase the chance of positive evaluation;
 
 ## Getting Started
 
