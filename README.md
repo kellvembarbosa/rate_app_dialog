@@ -1,6 +1,13 @@
 # rate_app_dialog
 
-A new flutter plugin project.
+Para adicionar este pacote ao seu projeto será necessário colocar isto ao seu pubspec:
+
+```dart 
+  rate_app_dialog:
+    git:
+      url: git://github.com/kellvembarbosa/rate_app_dialog.git
+      ref: master 
+```
 
 ## Getting Started
 
