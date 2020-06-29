@@ -9,8 +9,7 @@ class ChannelCall {
     var result = await this.methodChannel.invokeMethod("openPlayStore");
     debugPrint("result: $result");
   }*/
-  static const MethodChannel _channel =
-  const MethodChannel('rate_app_dialog');
+  static const MethodChannel _channel = const MethodChannel('rate_app_dialog');
 
   static Future<String> get platformVersion async {
     final String version = await _channel.invokeMethod('getPlatformVersion');
@@ -22,16 +21,23 @@ class ChannelCall {
     debugPrint("result: $result");
   }
 
+  Future<void> sendEmail(
+      {@required String emailAdmin, @required String bodyEmail}) async {
+    var result = await _channel.invokeMethod(
+        "sendEmail", {'email': emailAdmin, 'bodyEmail': bodyEmail});
+    debugPrint("result: $result");
+  }
+
   Future<int> getDeviceLang() async {
     var langCode = await _channel.invokeMethod("getDeviceLang");
     debugPrint("flutter: langCodeResult: $langCode");
-    if(langCode != null)
-      switch(langCode) {
+    if (langCode != null)
+      switch (langCode) {
         case 'pt':
-            return 1;
+          return 1;
           break;
         case 'es':
-            return 2;
+          return 2;
           break;
         default:
           return 0;

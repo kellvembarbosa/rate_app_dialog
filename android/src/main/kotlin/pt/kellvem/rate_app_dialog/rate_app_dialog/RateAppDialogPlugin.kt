@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
@@ -69,6 +70,26 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
       val currentLanguage = Locale.getDefault().language
       result.success(currentLanguage)
     }
+    "sendEmail" -> {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+        val email = call.argument<String>("email")
+        val bodyEmail = call.argument<String>("bodyEmail")
+
+        val emailArrray:Array<String> = arrayOf("$email")
+        val intent = Intent(Intent.ACTION_SENDTO)
+
+        intent.data = Uri.parse("mailto:")
+        intent.putExtra(Intent.EXTRA_EMAIL, emailArrray)
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback app name: ${this.activity.applicationInfo.loadLabel(this.activity.packageManager)} | package: ${this.activity.packageName} ")
+        intent.putExtra(Intent.EXTRA_TEXT, bodyEmail)
+        if (intent.resolveActivity(this.activity.packageManager) != null) {
+          this.activity.startActivity(intent)
+        }
+        result.success("sendEmail Feedback app name: ${this.activity.applicationInfo.loadLabel(this.activity.packageManager)} | package: ${this.activity.packageName} ")
+      }
+      result.success("version android sdk not supported")
+    }
+
     "openPlayStore" -> {
       var pacote:String = this.activity.packageName;
       try {

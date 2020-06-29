@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  
+
   RateAppDialog rateAppDialog;
 
   void _incrementCounter() {
@@ -41,7 +41,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    rateAppDialog = RateAppDialog(context: context, afterStarRedirect: false, minimeRequestToShow: 4, minimeRateIsGood: 4);
+    rateAppDialog = RateAppDialog(
+        context: context,
+        afterStarRedirect: false,
+        minimeRequestToShow: 4,
+        minimeRateIsGood: 4
+    );
   }
 
   @override
@@ -65,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           rateAppDialog?.requestRate();
           _incrementCounter();
         },

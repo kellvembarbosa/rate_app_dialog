@@ -1,5 +1,7 @@
 library rateappdialog;
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,29 +14,42 @@ class RateAppDialog {
   final int minimeRateIsGood;
   final int minimeRequestToShow;
   final bool afterStarRedirect;
+  final int timeToShow;
+  final String emailAdmin;
+
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  RateAppDialog({this.context, this.minimeRateIsGood = 4, this.minimeRequestToShow = 4, this.afterStarRedirect = false});
+  RateAppDialog(
+      {this.context,
+      this.minimeRateIsGood = 4,
+      this.minimeRequestToShow = 4,
+      this.afterStarRedirect = false,
+      this.timeToShow = 0,
+      this.emailAdmin = ''});
 
   requestRate() async {
     int numeroRequest = await _updateRateRequest();
     final SharedPreferences prefs = await _prefs;
 
     debugPrint("rate_app_dialog:debugPrint | numberOfRequest: $numeroRequest minimeRequestToShow: $minimeRequestToShow");
-    if(!(prefs.getBool(Constants.table_rated) ?? false) && numeroRequest >= minimeRequestToShow)
-      showDialog(
-          context: context,
-          builder: (BuildContext context) => RateDialog(
-              afterStarRedirect: afterStarRedirect,
-              minimeRateIsGood: minimeRateIsGood
-          ));
+
+    if (!(prefs.getBool(Constants.table_rated) ?? false) &&
+        numeroRequest >= minimeRequestToShow)
+      Timer(
+          Duration(seconds: timeToShow),
+          () => showDialog(
+              context: context,
+              builder: (BuildContext context) => RateDialog(
+                  afterStarRedirect: afterStarRedirect,
+                  minimeRateIsGood: minimeRateIsGood, emailAdmin: emailAdmin)));
     else
       debugPrint("rate_app_dialog:debugPrint | this user rated");
   }
 
   Future<int> _updateRateRequest() async {
     final SharedPreferences prefs = await _prefs;
-    int minimeRequestToShow = (prefs.getInt(Constants.table_rate_minime_request) ?? 0) + 1;
+    int minimeRequestToShow =
+        (prefs.getInt(Constants.table_rate_minime_request) ?? 0) + 1;
     int saved = await prefs
         .setInt(Constants.table_rate_minime_request, minimeRequestToShow)
         .then((bool success) {
