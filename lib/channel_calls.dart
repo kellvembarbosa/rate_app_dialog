@@ -16,6 +16,17 @@ class ChannelCall {
     return version;
   }
 
+  Future<void> requestReview() async {
+    var result = await _channel.invokeMethod("requestReview");
+    debugPrint("result: $result");
+  }
+
+  Future<bool> isRequestAvaliable() async {
+    final String result = await _channel.invokeMethod("isRequestAvaliable");
+    debugPrint("result: $result");
+    return result == '1';
+  }
+
   Future<void> openPlayStore() async {
     var result = await _channel.invokeMethod("openPlayStore");
     debugPrint("result: $result");

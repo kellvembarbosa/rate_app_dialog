@@ -44,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
     rateAppDialog = RateAppDialog(
         context: context,
         afterStarRedirect: false,
+        customDialogIOS: true,
         minimeRequestToShow: 4,
         minimeRateIsGood: 4
     );
