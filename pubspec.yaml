@@ -1,7 +1,7 @@
 name: rate_app_dialog
 description: This package is designed to increase the ratings in your app, with bad review filter, find out what's bad and get more positive reviews!
-version: 0.1.1+4
-homepage: https://kellvem.pt
+version: 0.1.1+5
+homepage: https://github.com/kellvembarbosa/rate_app_dialog
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

@@ -11,7 +11,6 @@ import 'star_rating.dart';
 class RateDialog extends StatefulWidget {
   final int minimeRateIsGood;
   final bool afterStarRedirect;
-  String btnLater;
   final Image image;
   final String emailAdmin;
 
