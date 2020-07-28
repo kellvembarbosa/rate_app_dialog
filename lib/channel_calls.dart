@@ -34,26 +34,21 @@ class ChannelCall {
 
   Future<void> sendEmail(
       {@required String emailAdmin, @required String bodyEmail}) async {
-    var result = await _channel.invokeMethod(
-        "sendEmail", {'email': emailAdmin, 'bodyEmail': bodyEmail});
-    debugPrint("result: $result");
+    try {
+      var result = await _channel.invokeMethod(
+          "sendEmail", {'email': emailAdmin, 'bodyEmail': bodyEmail});
+      debugPrint("result: $result");
+    } on PlatformException catch (e) {
+      throw 'Dont send e-mail ${e.message}';
+    }
   }
 
-  Future<int> getDeviceLang() async {
+  Future<String> getDeviceLang() async {
     var langCode = await _channel.invokeMethod("getDeviceLang");
     debugPrint("flutter: langCodeResult: $langCode");
     if (langCode != null)
-      switch (langCode) {
-        case 'pt':
-          return 1;
-          break;
-        case 'es':
-          return 2;
-          break;
-        default:
-          return 0;
-      }
+      return langCode;
     else
-      return 0;
+      return "en";
   }
 }

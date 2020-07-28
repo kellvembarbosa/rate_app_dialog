@@ -13,12 +13,13 @@ class RateDialog extends StatefulWidget {
   final bool afterStarRedirect;
   final Image image;
   final String emailAdmin;
+  final Map<String, Map<String, String>> langTexts;
 
   RateDialog({
     @required this.minimeRateIsGood,
     this.image,
     this.afterStarRedirect,
-    this.emailAdmin = '',
+    this.emailAdmin = '', @required this.langTexts,
   });
 
   @override
@@ -33,7 +34,7 @@ class _RateDialogState extends State<RateDialog> {
   int ratedStars;
 
   var _langTexts;
-  int langArrayPosition = 0;
+  String langArrayPosition = "en";
   final _formKey = GlobalKey<FormState>();
   final _textController = TextEditingController();
   bool badAvaliationEmpty = false;
@@ -43,12 +44,28 @@ class _RateDialogState extends State<RateDialog> {
     super.initState();
     ChannelCall().getDeviceLang().then((value) {
       langArrayPosition = value;
-      _langTexts = LangTexts().langText[langArrayPosition];
+      //Concatenating the two lists to add the language modifications
+      Map<String, String> langText = {};
+      if(widget.langTexts != null){
+        LangTexts().text[langArrayPosition].forEach((key, value) { 
+            if(widget.langTexts[langArrayPosition] != null)
+              if(widget.langTexts[langArrayPosition][key] != null)
+                langText.addAll({key : widget.langTexts[langArrayPosition][key].toString()});
+              else
+                langText.addAll({key : value});
+            else
+                langText.addAll({key : value});
+        });
 
+      }else
+        langText = LangTexts().text["en"];
+        
+      _langTexts = langText;
+      debugPrint("langs =======> ${_langTexts.toString()}");
       setState(() {});
     });
 
-    _langTexts = LangTexts().langText[langArrayPosition];
+    _langTexts = LangTexts().text[langArrayPosition];
 
     minimeRateIsGood = widget.minimeRateIsGood;
     ratedStars = 0;
@@ -276,6 +293,7 @@ class _RateDialogState extends State<RateDialog> {
                 ChannelCall().openPlayStore();
                 _updateRatedDatabase(rated: true);
                 setState(() {});
+                Navigator.of(context).pop();
                 return;
               }
               isGood = 1;

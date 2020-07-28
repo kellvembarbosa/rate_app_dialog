@@ -37,3 +37,15 @@ class LangTexts {
 
   get langText => text.values.toList();
 }
+
+
+class LangModel {
+  Map<String, List<LangTextModel>> langCode;
+}
+
+class LangTextModel {
+  final String key;
+  final String value;
+
+  LangTextModel(this.key, this.value);
+}

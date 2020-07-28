@@ -19,6 +19,7 @@ class RateAppDialog {
   final bool customDialogIOS;
   final int timeToShow;
   final String emailAdmin;
+  final Map<String, Map<String, String>> langTexts;
 
   static Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -29,7 +30,8 @@ class RateAppDialog {
       this.afterStarRedirect = false,
       this.customDialogIOS = false,
       this.timeToShow = 0,
-      this.emailAdmin = ''});
+      this.emailAdmin = '',
+      this.langTexts});
 
   requestRate() async {
     int numeroRequest = await _updateRateRequest();
@@ -39,14 +41,13 @@ class RateAppDialog {
     debugPrint(
         "rate_app_dialog:debugPrint | numberOfRequest: $numeroRequest minimeRequestToShow: $minimeRequestToShow");
 
-    if(Platform.isIOS){
+    if (Platform.isIOS) {
       isAvaliableRequest = await ChannelCall().isRequestAvaliable();
     }
 
     if (!(prefs.getBool(Constants.table_rated) ?? false) &&
-        numeroRequest >= minimeRequestToShow){
-
-      if(customDialogIOS == false && isAvaliableRequest){
+        numeroRequest >= minimeRequestToShow) {
+      if (customDialogIOS == false && isAvaliableRequest) {
         await ChannelCall().requestReview();
         _updateRatedDatabase(rated: true);
         return;
@@ -59,8 +60,8 @@ class RateAppDialog {
               builder: (BuildContext context) => RateDialog(
                   afterStarRedirect: afterStarRedirect,
                   minimeRateIsGood: minimeRateIsGood,
-                  emailAdmin: emailAdmin)));
-    }else
+                  emailAdmin: emailAdmin, langTexts: langTexts)));
+    } else
       debugPrint("rate_app_dialog:debugPrint | this user rated");
   }
 
@@ -81,5 +82,18 @@ class RateAppDialog {
     prefs.setBool(Constants.table_rated, rated).then((bool success) {
       return success;
     });
+  }
+
+  /// Sugestion: Aakash Kumar | git: @kumar-aakash86
+  /// https://github.com/kellvembarbosa/rate_app_dialog/issues/1
+  /// for reset key/values SharedPreferences ideal to tests
+  /// Call this method for testing only! It will reset the saved values so that you can test again and call the dialog.
+
+  resetKeyAndValues() async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.setBool(Constants.table_rated, false);
+    prefs.setInt(Constants.table_rated_stars, 0);
+    prefs.setInt(Constants.table_rate_minime_request, 0);
+    debugPrint("Rate_App_Dialog | ========> Data key/values Reseted <=======");
   }
 }

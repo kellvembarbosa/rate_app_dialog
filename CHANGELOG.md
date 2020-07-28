@@ -1,3 +1,9 @@
+## 0.1.2
+- Add option custom langs
+- Fix bug console logs "java.lang.IllegalStateException: Reply already submitted"
+- Fix dialog dismiss when afterStarRedirect is True
+- added method to reset key and values sharedpreferences to tests
+
 ## 0.1.1+5
 - Added iOS implementation
 - update readme.md

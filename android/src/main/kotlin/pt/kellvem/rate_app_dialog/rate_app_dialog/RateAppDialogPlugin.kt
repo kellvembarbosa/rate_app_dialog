@@ -72,8 +72,8 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
     }
     "sendEmail" -> {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
-        val email = call.argument<String>("email")
-        val bodyEmail = call.argument<String>("bodyEmail")
+        val email : String? = call.argument<String>("email")
+        val bodyEmail : String? = call.argument<String>("bodyEmail")
 
         val emailArrray:Array<String> = arrayOf("$email")
         val intent = Intent(Intent.ACTION_SENDTO)
@@ -82,12 +82,14 @@ public class RateAppDialogPlugin: FlutterPlugin, MethodCallHandler, ActivityAwar
         intent.putExtra(Intent.EXTRA_EMAIL, emailArrray)
         intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback app name: ${this.activity.applicationInfo.loadLabel(this.activity.packageManager)} | package: ${this.activity.packageName} ")
         intent.putExtra(Intent.EXTRA_TEXT, bodyEmail)
+        
         if (intent.resolveActivity(this.activity.packageManager) != null) {
           this.activity.startActivity(intent)
         }
-        result.success("sendEmail Feedback app name: ${this.activity.applicationInfo.loadLabel(this.activity.packageManager)} | package: ${this.activity.packageName} ")
+
+        return result.success("sendEmail Feedback app name: ${this.activity.applicationInfo.loadLabel(this.activity.packageManager)} | package: ${this.activity.packageName} ")
       }
-      result.success("version android sdk not supported")
+      return result.success("version android sdk not supported")
     }
 
     "openPlayStore" -> {

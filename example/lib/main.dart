@@ -39,15 +39,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    /**
+     * All keys to translate
+    "en": {
+      "title": "Rating this App",
+      "description": "Are you enjoying the app? \n Can you rate our app now?",
+      "btnLater": "Later",
+      "badRateDescription": "Tell us why you don't like this app?",
+      "badRateTextAreaHinit": "Leave feedback here.",
+      "badValidation": "Required!",
+      "badBtnSend": "Submit",
+      "goodRateDescription": "Help us rate our app on the PlayStore.",
+      "goodBtnRate": "Rate now!",
+    }
+
+    ======================================== example ====================================
+
+    to add custom lang Code
+    Example: 
+    var langs = "fr": {
+      "title": "Noter cette application",
+      ...
+    }
+    **/
+
+    var langs = {
+      "en" : {
+        "title" : "My APP - Custom text Lang",
+        "description": "Are you enjoying the app? \n Can you rate our app now?",
+      }
+    };
+
     rateAppDialog = RateAppDialog(
         context: context,
-        afterStarRedirect: false,
+        langTexts: langs,
+        afterStarRedirect: true,
+        emailAdmin: "kellvem222@gmail.com",
         customDialogIOS: true,
         minimeRequestToShow: 4,
-        minimeRateIsGood: 4
-    );
+        minimeRateIsGood: 4);
   }
 
   @override
@@ -55,6 +87,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          // Call this method for testing only! It will reset the saved values so that you can test again and call the dialog.
+          IconButton(
+              icon: Icon(Icons.restore),
+              onPressed: () => rateAppDialog.resetKeyAndValues())
+        ],
       ),
       body: Center(
         child: Column(
