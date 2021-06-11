@@ -8,6 +8,12 @@
             "name": "Flutter",
             "request": "launch",
             "type": "dart"
+        },
+        {
+            "name": "Example",
+            "cwd": "example",
+            "request": "launch",
+            "type": "dart"
         }
     ]
 }
