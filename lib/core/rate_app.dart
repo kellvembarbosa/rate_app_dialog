@@ -59,6 +59,7 @@ class RateApp {
               context: context,
               title: 'title'.translate(translate),
               desc: 'description'.translate(translate),
+              style: alertStyle ?? AlertStyle(),
               buttons: [
                 DialogButton(
                   child: Text(
@@ -68,6 +69,7 @@ class RateApp {
                   onPressed: () {
                     prefs.setBool(Constants.DONT_LIKE, true);
                     Navigator.pop(context);
+                    sendSuggestion(context);
                   },
                   color: Color.fromRGBO(0, 179, 134, 1.0),
                 ),
@@ -105,6 +107,50 @@ class RateApp {
     }
     debugPrint('requestDialogs: $requestDialogs');
     prefs.setInt(Constants.REQUEST_DIALOGS, requestDialogs + 1);
+  }
+
+  sendSuggestion(BuildContext context) {
+    final translate = Translate(newTranslations: translations);
+    Alert(
+        context: context,
+        title: "badRateDescription".translate(translate),
+        content: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 18,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'name'.translate(translate),
+              ),
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'badRateTextAreaHinit'.translate(translate),
+              ),
+              minLines: 4,
+              maxLines: 4,
+            ),
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              "badBtnSend".translate(translate),
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(116, 116, 191, 1.0),
+              Color.fromRGBO(52, 138, 199, 1.0)
+            ]),
+          )
+        ]).show();
   }
 
   /// Call this method for testing only! It will reset the saved values so that you can test again and call the dialog.
